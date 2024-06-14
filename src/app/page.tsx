@@ -1,36 +1,24 @@
 "use client"
 import React from "react"
-import styles from "./page.module.css";
-import Contador from "../components/Contador/Contador"
+import CardSection from "../components/CardSection";
+import Header from "../components/Header";
 
 export default function Home() {
-  const [contador, setContador] = React.useState(5)
-  const [contador2, setContador2] = React.useState(2)
-
-    function incrementar(){
-        setContador(contador + 1)
-    }
-
-    function decrementar(){
-        if (contador === 0) {
-            return
-        }
-        setContador(contador - 1)
-    }
-
-    function incrementar2(){
-      setContador2(contador2 + 1)
-  }
-
-  function decrementar2(){
-      setContador2(contador2 - 1)
-  }
-
-  return (
-    <main className={styles.main}>
-      <h1>Home</h1>
-      <Contador valor={contador} incrementar={() => incrementar()}  decrementar={() => decrementar()} />
-      <Contador valor={contador2} incrementar={() => incrementar2()}  decrementar={() => decrementar2()} />
-    </main>
-  );
+    return (
+        <div>
+            <Header titulo="Squirtle" />
+            <CardSection titulo="About Squirtle">
+                <p>Squirtle is a Water-type Pokémon introduced in Generation I.</p>
+            </CardSection>
+            <CardSection titulo="Abilities">
+                <ul>
+                    <li>Rain Dish</li>
+                    <li>Torrent</li>
+                </ul>
+            </CardSection>
+            <CardSection titulo="Evolutions">
+                <p>Squirtle evolves into Wartortle at level 16 and then into Blastoise at level 36.</p>
+            </CardSection>
+        </div>
+    );
 }
