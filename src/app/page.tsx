@@ -2,6 +2,7 @@
 import React from "react"
 import CardSection from "../components/CardSection";
 import Header from "../components/Header";
+import Evolutions from "../components/Evolutions";
 
 export default function Home() {
     return (
@@ -16,9 +17,7 @@ export default function Home() {
                     <li>Torrent</li>
                 </ul>
             </CardSection>
-            <CardSection titulo="Evolutions">
-                <p>Squirtle evolves into Wartortle at level 16 and then into Blastoise at level 36.</p>
-            </CardSection>
+            <Evolutions />
         </div>
     );
 }
