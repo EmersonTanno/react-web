@@ -16,13 +16,14 @@ const Evolutions = () => {
             <ul>
                 {evolutions.map(evolution => (
                     <li key={evolution.name}>
-                        <Link href={`/evolutions?evolucao=${evolution.name}`}>
+                        <Link href={`../../evolutions?evolucao=${evolution.name}`}>
 
                             <Image
                                 src={evolution.img}
                                 alt={evolution.name}
                                 width={100}
                                 height={100}
+                                unoptimized
                             />
 
                         </Link>

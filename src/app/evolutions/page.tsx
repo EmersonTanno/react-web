@@ -1,17 +1,17 @@
 "use client";
 
-import React, { Suspense } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import CardSection from '../../components/CardSection';
 
-const EvolutionsPage = () => {
+const EvolutionsPageContent = () => {
     const searchParams = useSearchParams();
     const evolucao = searchParams.get('evolucao');
-    const [evolutionData, setEvolutionData] = React.useState<any>(null);
-    const [loading, setLoading] = React.useState(true);
+    const [evolutionData, setEvolutionData] = useState<any>(null);
+    const [loading, setLoading] = useState(true);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (evolucao) {
             fetch(`https://pokeapi.co/api/v2/pokemon/${evolucao.toLowerCase()}`)
                 .then(response => response.json())
@@ -26,24 +26,31 @@ const EvolutionsPage = () => {
         }
     }, [evolucao]);
 
-    if (loading) {
-        return <p>Loading...</p>;
-    }
-
     return (
-        <Suspense fallback={<p>Loading...</p>}>
-            {evolutionData ? (
-                <CardSection titulo={String(evolucao)}>
-                    <Image
-                        src={evolutionData.sprites.front_default}
-                        alt={String(evolucao)}
-                        width={200}
-                        height={200}
-                    />
-                </CardSection>
+        <div>
+            {loading ? (
+                <p>Loading...</p>
             ) : (
-                <p>No data available</p>
+                evolutionData && (
+                    <CardSection titulo={String(evolucao)}>
+                        <Image
+                            src={evolutionData.sprites.front_default}
+                            alt={String(evolucao)}
+                            width={200}
+                            height={200}
+                            unoptimized
+                        />
+                    </CardSection>
+                )
             )}
+        </div>
+    );
+};
+
+const EvolutionsPage = () => {
+    return (
+        <Suspense fallback={<p>Loading page...</p>}>
+            <EvolutionsPageContent />
         </Suspense>
     );
 };
