@@ -16,7 +16,7 @@ const Evolutions = () => {
             <ul>
                 {evolutions.map(evolution => (
                     <li key={evolution.name}>
-                        <Link href={`../../evolutions?evolucao=${evolution.name}`}>
+                        <Link href={`./evolutions?evolucao=${evolution.name}`}>
 
                             <Image
                                 src={evolution.img}
