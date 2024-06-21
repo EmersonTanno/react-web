@@ -1,6 +1,7 @@
 import React from 'react';
-import styles from './CardSection.module.css';
 import Link from 'next/link';
+import Image from 'next/image';
+import styles from './CardSection.module.css';
 
 const evolutions = [
     { name: 'Squirtle', img: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/007.png' },
@@ -15,8 +16,15 @@ const Evolutions = () => {
             <ul>
                 {evolutions.map(evolution => (
                     <li key={evolution.name}>
-                        <Link href={`../../evolutions?evolucao=${evolution.name}`}>
-                            <img src={evolution.img} alt={evolution.name} />
+                        <Link href={`/evolutions?evolucao=${evolution.name}`}>
+
+                            <Image
+                                src={evolution.img}
+                                alt={evolution.name}
+                                width={100}
+                                height={100}
+                            />
+
                         </Link>
                     </li>
                 ))}

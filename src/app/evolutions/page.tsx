@@ -1,33 +1,51 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react';
+import React, { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
+import Image from 'next/image';
 import CardSection from '../../components/CardSection';
 
-const EvolucoesPage = () => {
+const EvolutionsPage = () => {
     const searchParams = useSearchParams();
     const evolucao = searchParams.get('evolucao');
-    const [evolutionData, setEvolutionData] = useState(null);
+    const [evolutionData, setEvolutionData] = React.useState<any>(null);
+    const [loading, setLoading] = React.useState(true);
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (evolucao) {
             fetch(`https://pokeapi.co/api/v2/pokemon/${evolucao.toLowerCase()}`)
                 .then(response => response.json())
-                .then(data => setEvolutionData(data));
+                .then(data => {
+                    setEvolutionData(data);
+                    setLoading(false);
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                    setLoading(false);
+                });
         }
     }, [evolucao]);
 
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
     return (
-        <div>
+        <Suspense fallback={<p>Loading...</p>}>
             {evolutionData ? (
                 <CardSection titulo={String(evolucao)}>
-                    <img src={evolutionData['sprites']['front_default']} alt={String(evolucao)} />
+                    <Image
+                        src={evolutionData.sprites.front_default}
+                        alt={String(evolucao)}
+                        width={200}
+                        height={200}
+                    />
                 </CardSection>
             ) : (
-                <p>Loading...</p>
+                <p>No data available</p>
             )}
-        </div>
+        </Suspense>
     );
 };
 
-export default EvolucoesPage;
+export default EvolutionsPage;
